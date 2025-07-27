@@ -1,0 +1,26 @@
+.main-content {
+  margin-top: 7rem;
+  width: 100%;
+  height: auto;
+  overflow-y: auto;
+}
+
+.header {
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 7rem !important;
+  width: 100% !important;
+  background-color: #f9f5ed;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 10rem !important;
+  width: 100% !important;
+  background-color: rgb(230, 224, 151);
+}

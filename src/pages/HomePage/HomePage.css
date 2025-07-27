@@ -1,0 +1,11 @@
+.home-container{
+  background-color: #c7c3c379;
+  color: rgb(66, 64, 64);
+}
+
+.home-container> div {
+  width: 100%;
+  scroll-margin-top: 7rem;
+  height: 100vh !important;
+  border: 2px solid red;
+}
