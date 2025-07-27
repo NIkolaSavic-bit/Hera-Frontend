@@ -1,0 +1,88 @@
+.service-card {
+  position: relative;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  overflow: hidden;
+  max-width: 350px;
+  margin: 20px;
+  padding-top: 1rem;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  font-family: "Arial", sans-serif;
+  z-index: 0 !important;
+}
+
+.service-card-image {
+  width: 70px;
+  height: 70px;
+  object-fit: cover;
+}
+
+.service-card-content {
+  padding: 20px;
+}
+
+.service-card-title {
+  font-size: 14pt;
+  font-weight: 200;
+  margin: 0 0 10px 0;
+  color: #333;
+}
+
+.service-card-description {
+  font-size: 10pt;
+  font-weight: 100;
+  color: #666;
+  margin: 0 0 20px 0;
+  line-height: 1.5;
+}
+
+.price-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.price-table tr:not(:last-child) {
+  border-bottom: 1px solid #eee;
+}
+
+.price-table td {
+  padding: 10px 0;
+}
+
+.area {
+  font-size: 10pt;
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  font-weight: 100;
+  color: #333;
+}
+
+.price {
+  font-size: 10pt;
+  font-weight: 100;
+  text-align: right;
+  color: #888;
+}
+
+.most-popular {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: #ff6b6b;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: bold;
+  z-index: 1;
+}
+
+.service-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.service-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
