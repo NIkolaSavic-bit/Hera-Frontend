@@ -5,19 +5,16 @@
   color: #303030;
 }
 
-.home-container > div:not(:first-child) {
+.home-container > div {
   background-color: white;
   width: 100%;
   scroll-margin-top: 7rem;
-  min-height: 100vh;
+  height: 100vh !important;
 }
 
 #intro {
-  width: 100%;
-  scroll-margin-top: 7rem;
   padding: 3rem 10rem 0rem 10rem;
-  min-height: 70vh !important;
-  background: yellow;
+  height: 70vh !important;
 }
 
 #intro > h1 {
@@ -77,11 +74,10 @@
 
 #our-services {
   max-width: 1200px;
+  height: 100vh;
   margin: 0 auto;
-  padding: 0px 20px;
   font-family: "Arial", sans-serif;
   text-align: center;
-  background: green;
 }
 
 #our-services h1 {
@@ -217,12 +213,8 @@
 
   .home-container > div {
     height: auto !important;
-    min-height: 100vh;
+    min-height: 100vh !important;
     padding: 2rem 0;
-  }
-
-  #our-services {
-    padding: 2rem 1rem;
   }
 
   .services-container {
@@ -253,7 +245,6 @@
   }
 }
 
-/* Special adjustments for very small screens */
 @media (max-width: 360px) {
   #intro > h1 {
     font-size: 1.3rem;

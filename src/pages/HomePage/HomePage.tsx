@@ -1,5 +1,6 @@
-import ImageSlider from "../../components/ImageSlider/ImageSLider";
+import ImageSlider from "../../components/ImageSlider/ImageSlider";
 import ServiceCard from "../../components/Services/Services";
+import Contact from "../Contact/Contact";
 import Reservation from "../Reservation/Reservation";
 import "./HomePage.css";
 
@@ -116,7 +117,9 @@ function HomePage() {
           <ImageSlider />
         </div>
       </div>
-      <div id="client-love">Kontakt</div>
+      <div id="client-love">
+        <Contact />
+      </div>
       <div id="visit-us">Posetite Nas</div>
       <div id="reservation">
         <Reservation />
