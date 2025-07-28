@@ -14,7 +14,7 @@
 
 .service-card-image {
   width: 70px;
-  height: 70px;
+  height: 100px;
   object-fit: cover;
 }
 
