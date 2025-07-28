@@ -1,11 +1,186 @@
-.home-container{
-  background-color: #c7c3c379;
+.home-container {
+  background-color: white;
   color: rgb(66, 64, 64);
+  padding: 0 5rem;
+  color: #303030;
 }
 
-.home-container> div {
+.home-container > div {
+  background-color: #f0eaeaa2;
   width: 100%;
   scroll-margin-top: 7rem;
   height: 100vh !important;
-  border: 2px solid red;
+  box-shadow: -8px 0 10px -6px rgba(0, 0, 0, 0.3),
+    8px 0 10px -6px rgba(0, 0, 0, 0.3);
+}
+
+#intro {
+  padding: 3rem 10rem;
+  height: 80vh !important;
+}
+
+#intro > h1 {
+  font-weight: 200;
+}
+
+#intro > h3 {
+  color: gray;
+  font-weight: 100;
+}
+
+.intro-buttons-holder {
+  height: 5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.intro-buttons-holder a {
+  height: 3rem;
+  width: 10rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid gray;
+  border-radius: 5px;
+  font-size: 14pt;
+}
+
+.intro-buttons-holder a:hover {
+  cursor: pointer;
+}
+
+.book {
+  color: #303030;
+  margin-left: 0.5rem;
+}
+
+.book:hover {
+  color: #303030;
+}
+
+.services {
+  background-color: #303030;
+  color: white !important;
+  font-weight: 100;
+  text-decoration: none;
+  margin-right: 0.5rem;
+}
+
+#our-services {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 20px;
+  font-family: "Arial", sans-serif;
+  text-align: center;
+}
+
+#our-services h1 {
+  color: #333;
+  margin-bottom: 10px;
+  font-weight: 100;
+}
+
+#our-services .subtitle {
+  color: gray;
+  font-weight: 100;
+  margin-bottom: 40px;
+}
+
+.services-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 30px;
+  margin-top: 30px;
+}
+
+/* Mobile-first responsive styles */
+@media (max-width: 1200px) {
+  .home-container {
+    padding: 0 3rem;
+  }
+
+  #intro {
+    padding: 2rem 5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .home-container {
+    padding: 0 2rem;
+  }
+
+  #intro {
+    padding: 2rem;
+    height: auto !important;
+    min-height: 80vh;
+  }
+
+  #intro > h1 {
+    font-size: 1.8rem;
+  }
+
+  #intro > h3 {
+    font-size: 1rem;
+  }
+
+  .intro-buttons-holder {
+    flex-direction: column;
+    height: auto;
+    gap: 1rem;
+  }
+
+  .intro-buttons-holder a {
+    width: 100%;
+    margin: 0.5rem 0 !important;
+  }
+
+  .home-container > div {
+    height: auto !important;
+    min-height: 100vh;
+    padding: 2rem 0;
+  }
+
+  #our-services {
+    padding: 2rem 1rem;
+  }
+
+  .services-container {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .home-container {
+    padding: 0 1rem;
+  }
+
+  #intro {
+    padding: 1.5rem;
+  }
+
+  #intro > h1 {
+    font-size: 1.5rem;
+  }
+
+  #our-services h1 {
+    font-size: 1.5rem;
+  }
+
+  .service-card {
+    max-width: 100%;
+  }
+}
+
+/* Special adjustments for very small screens */
+@media (max-width: 360px) {
+  #intro > h1 {
+    font-size: 1.3rem;
+  }
+
+  .intro-buttons-holder a {
+    font-size: 1rem;
+    height: 2.5rem;
+  }
 }
