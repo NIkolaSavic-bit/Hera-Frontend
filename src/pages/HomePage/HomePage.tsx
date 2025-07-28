@@ -1,4 +1,5 @@
 import ServiceCard from "../../components/Services/Services";
+import Reservation from "../Reservation/Reservation";
 import "./HomePage.css";
 
 function HomePage() {
@@ -53,7 +54,7 @@ function HomePage() {
           <a className="services" href="#our-services">
             Usluge
           </a>
-          <a className="book">Rezervacija</a>
+          <a className="book" href="#reservation">Rezervacija</a>
         </div>
       </div>
       <div id="our-services">
@@ -71,7 +72,7 @@ function HomePage() {
       <div id="about-stats">O Nama</div>
       <div id="client-love">Kontakt</div>
       <div id="visit-us">Posetite Nas</div>
-      <div id="reservation">Rezervacije</div>
+      <div id="reservation"><Reservation/></div>
     </div>
   );
 }

@@ -16,7 +16,15 @@ function Header() {
         <a href="#client-love">Kontakt</a>
       </div>
       <div className="book-now">
-        <button>Rezerviši Termin </button>
+        <button
+          onClick={() =>
+            document
+              .getElementById("reservation")
+              ?.scrollIntoView({ behavior: "smooth" })
+          }
+        >
+          Rezerviši Termin
+        </button>{" "}
       </div>
     </div>
   );

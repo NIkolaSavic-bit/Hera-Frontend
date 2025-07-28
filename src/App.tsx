@@ -11,7 +11,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<HomePage />} />
-          <Route path="/login" element={<Login />} />
+          <Route path="/Prijava" element={<Login />} />
         </Route>
       </Routes>
     </BrowserRouter>

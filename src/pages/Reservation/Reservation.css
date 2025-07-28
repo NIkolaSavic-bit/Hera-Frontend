@@ -1,0 +1,189 @@
+.appointment-container {
+  max-width: 650px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background-color:rgb(125,125,125,0.1);
+  border-radius: 12px;
+  box-shadow: 0 6px 18px rgba(125,125, 125, 0.5);
+  font-family: 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', sans-serif;
+}
+
+.appointment-container h2 {
+  text-align: center;
+  color: black;
+  margin-bottom: 2rem;
+  font-size: 2rem;
+  font-weight: 600;
+}
+
+.appointment-container form {
+  display: flex;
+  flex-direction: column;
+  height: auto;
+}
+
+.form-row {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.form-group {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group label {
+  margin-bottom: 0.6rem;
+  font-weight: 600;
+  color: #4a4a4a;
+  font-size: 0.95rem;
+}
+
+/* Add box-sizing globally to inputs and selects */
+input,
+select {
+  box-sizing: border-box;
+}
+
+/* Inputs and selects styling */
+.form-group input,
+.form-group select {
+  padding: 0.9rem 1rem;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  transition: all 0.25s ease;
+  background-color: #f9f9f9;
+  height: 44px; /* fixed height to unify */
+  line-height: 1.2;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+  outline: none;
+  border-color: #6d4aff;
+  box-shadow: 0 0 0 3px rgba(109, 74, 255, 0.15);
+  background-color: #fff;
+}
+
+.form-group input::placeholder {
+  color: #aaa;
+  opacity: 1;
+}
+
+/* Appearance for selects */
+.form-group select {
+  appearance: none;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23666' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+  background-size: 1.2rem;
+  padding-right: 2.5rem;
+  color: #333; /* text color */
+}
+
+/* Remove custom padding overrides on date/time inputs */
+input[type="date"],
+input[type="time"] {
+  position: relative;
+  padding-right: 2.5rem; /* space for the icon */
+  background-color: #f9f9f9;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 1rem;
+  height: 44px;
+  line-height: 1.2;
+  box-sizing: border-box;
+  
+  /* Add custom calendar SVG icon */
+  background-image: url('data:image/svg+xml;utf8,<svg fill="%23666" xmlns="http://www.w3.org/2000/svg" height="24" width="24" viewBox="0 0 24 24"><path d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zM5 20V9h14v11H5z"/></svg>');
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  background-size: 20px 20px;
+}
+
+input[type="date"]:focus,
+input[type="time"]:focus {
+  outline: none;
+  border-color: #6d4aff;
+  box-shadow: 0 0 0 3px rgba(109, 74, 255, 0.15);
+  background-color: #fff;
+}
+
+/* Calendar and time picker indicator tweaks */
+input[type="date"]::-webkit-calendar-picker-indicator {
+ position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+  /* Remove transparency to make native indicator clickable */
+  background: none !important;
+  color: transparent; /* Keep color transparent to avoid double icon */
+  opacity: 0; 
+}
+
+input[type="time"]::-webkit-calendar-picker-indicator {
+  background: transparent;
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 2rem;
+  cursor: pointer;
+}
+
+.submit-btn {
+  background-color:rgb(125,125,125,1);
+  color: white;
+  padding: 1.1rem;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.05rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  margin-top: 0.8rem;
+  letter-spacing: 0.5px;
+}
+
+.submit-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(109, 74, 255, 0.25);
+}
+
+.submit-btn:active {
+  transform: translateY(0);
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .appointment-container {
+    padding: 1.8rem;
+    margin: 1rem;
+  }
+
+  .form-row {
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .appointment-container {
+    padding: 1.5rem;
+  }
+
+  .appointment-container h2 {
+    font-size: 1.7rem;
+  }
+
+  .form-group input,
+  .form-group select {
+    padding: 0.8rem;
+    height: 40px; /* slightly smaller on small screens */
+  }
+}

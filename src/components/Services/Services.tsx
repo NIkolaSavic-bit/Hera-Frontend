@@ -1,5 +1,5 @@
-import React from 'react';
-import './Services.css';
+import React from "react";
+import "./Services.css";
 
 interface PriceItem {
   area: string;

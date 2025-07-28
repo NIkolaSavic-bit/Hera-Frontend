@@ -6,17 +6,15 @@
 }
 
 .home-container > div {
-  background-color: #f0eaeaa2;
+  background-color:white;
   width: 100%;
   scroll-margin-top: 7rem;
   height: 100vh !important;
-  box-shadow: -8px 0 10px -6px rgba(0, 0, 0, 0.3),
-    8px 0 10px -6px rgba(0, 0, 0, 0.3);
 }
 
 #intro {
   padding: 3rem 10rem;
-  height: 80vh !important;
+  height: 70vh !important;
 }
 
 #intro > h1 {
@@ -27,7 +25,14 @@
   color: gray;
   font-weight: 100;
 }
-
+#reservation {
+  margin: auto;       
+  background-color: white;
+  border-radius: 12px;
+  width: 40vw;            
+  min-width: 320px;       
+  box-sizing: border-box; 
+}
 .intro-buttons-holder {
   height: 5rem;
   display: flex;
