@@ -5,16 +5,19 @@
   color: #303030;
 }
 
-.home-container > div {
-  background-color:white;
+.home-container > div:not(:first-child) {
+  background-color: white;
   width: 100%;
   scroll-margin-top: 7rem;
-  height: 100vh !important;
+  min-height: 100vh;
 }
 
 #intro {
-  padding: 3rem 10rem;
-  height: 70vh !important;
+  width: 100%;
+  scroll-margin-top: 7rem;
+  padding: 3rem 10rem 0rem 10rem;
+  min-height: 70vh !important;
+  background: yellow;
 }
 
 #intro > h1 {
@@ -26,12 +29,12 @@
   font-weight: 100;
 }
 #reservation {
-  margin: auto;       
+  margin: auto;
   background-color: white;
   border-radius: 12px;
-  width: 40vw;            
-  min-width: 320px;       
-  box-sizing: border-box; 
+  width: 40vw;
+  min-width: 320px;
+  box-sizing: border-box;
 }
 .intro-buttons-holder {
   height: 5rem;
@@ -75,9 +78,10 @@
 #our-services {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 40px 20px;
+  padding: 0px 20px;
   font-family: "Arial", sans-serif;
   text-align: center;
+  background: green;
 }
 
 #our-services h1 {
@@ -89,17 +93,88 @@
 #our-services .subtitle {
   color: gray;
   font-weight: 100;
-  margin-bottom: 40px;
+  margin-bottom: 30px;
 }
 
 .services-container {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
   gap: 30px;
-  margin-top: 30px;
 }
 
-/* Mobile-first responsive styles */
+#about-stats {
+  display: flex !important;
+  height: 80vh !important;
+}
+
+.about-us-info {
+  flex-grow: 1;
+  padding: 0px 30px;
+  max-width: 45vw;
+}
+
+.info-container {
+  padding: 0rem 4rem;
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.info-container h2 {
+  color: #333;
+  font-size: 32pt;
+  font-weight: 100 !important;
+}
+
+.info-container p {
+  color: gray;
+  font-weight: 100;
+}
+
+.stats {
+  height: 6.75rem;
+  display: flex;
+  justify-content: space-between;
+  padding: 25px 20px;
+  border-radius: 10px;
+}
+
+.stat-item {
+  text-align: center;
+}
+
+.stat-number {
+  font-size: 36px;
+  font-weight: 200 !important;
+  color: #333;
+  margin-bottom: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.stat-text {
+  font-size: 16px;
+  color: #666;
+}
+
+.star-rating {
+  color: #333;
+  font-size: 24pt;
+  margin-right: 0.25rem;
+}
+
+.plus-rating {
+  color: #333;
+  font-size: 26pt;
+  margin-right: 0.25rem;
+}
+
+.studio-images-holder {
+  flex-grow: 1;
+  max-width: 450px;
+  padding-left: 3rem;
+}
+
 @media (max-width: 1200px) {
   .home-container {
     padding: 0 3rem;

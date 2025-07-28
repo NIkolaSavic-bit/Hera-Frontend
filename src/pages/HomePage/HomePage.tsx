@@ -1,6 +1,6 @@
+import ImageSlider from "../../components/ImageSlider/ImageSLider";
 import ServiceCard from "../../components/Services/Services";
 import Reservation from "../Reservation/Reservation";
-import Contact from "../Contact/Contact";
 import "./HomePage.css";
 
 function HomePage() {
@@ -55,7 +55,9 @@ function HomePage() {
           <a className="services" href="#our-services">
             Usluge
           </a>
-          <a className="book" href="#reservation">Rezervacija</a>
+          <a className="book" href="#reservation">
+            Rezervacija
+          </a>
         </div>
       </div>
       <div id="our-services">
@@ -70,10 +72,55 @@ function HomePage() {
           ))}
         </div>
       </div>
-      <div id="about-stats">O Nama</div>
-      <div id="client-love"><Contact/></div>
+      <div id="about-stats">
+        <div className="about-us-info">
+          <div className="info-container ">
+            <h2>Gde se Lepota Susreće sa Preciznošću</h2>
+            <p>
+              U Hestiji verujemo u moć suptilnog poboljšanja. Naš minimalistički
+              pristup fokusira se na isticanje vaše prirodne lepote pomoću
+              stručnih tehnika i najsavremenije tehnologije.
+            </p>
+            <p>
+              Osnovan od strane sertifikovanih estetičara sa preko 15 godina
+              zajedničkog iskustva, stvorili smo utočište gde se luksuz susreće
+              sa udobnošću, a preciznost sa umetnošću.
+            </p>
+            <div className="stats">
+              <div className="stat-item">
+                <div className="stat-number">
+                  500
+                  <div className="plus-rating ">+</div>
+                </div>
+                <div className="stat-text">Srećnih klijenata</div>
+              </div>
+
+              <div className="stat-item">
+                <div className="stat-number">
+                  <div className="star-rating">★</div>5
+                </div>
+                <div className="stat-text">Prosečna ocijena</div>
+              </div>
+
+              <div className="stat-item">
+                <div className="stat-number">
+                  3
+                  <div className="plus-rating ">+</div>
+                </div>
+                <div className="stat-text">Godina iskustva</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="studio-images-holder">
+          <ImageSlider />
+        </div>
+      </div>
+      <div id="client-love">Kontakt</div>
       <div id="visit-us">Posetite Nas</div>
-      <div id="reservation"><Reservation/></div>
+      <div id="reservation">
+        <Reservation />
+      </div>
     </div>
   );
 }
