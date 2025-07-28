@@ -1,0 +1,71 @@
+/* Contact.css */
+.contact-section {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+  height: auto;
+}
+
+.contact-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  align-items: stretch;
+  height: 50vh;
+}
+.contact-section h1 {
+  text-align: center;
+  font-weight: 200;
+  margin-bottom: 2rem;
+  color: #333;
+}
+
+.contact-info {
+  flex: 1;
+  
+  min-width: 300px;
+  background: #f9f9f9;
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.map-wrapper {
+  flex: 2;
+  min-width: 300px;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  background: #f0f0f0;
+}
+
+.responsive-map {
+  width: 100%;
+  height: 100%;
+  min-height: 300px;
+  border: 0;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .contact-container {
+    flex-direction: column;
+  }
+  
+  .contact-info,
+  .map-wrapper {
+    width: 100%;
+    flex: none;
+  }
+}
+
+a {
+  color: #5d3fd3;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+a:hover {
+  color: #3a2a8a;
+  text-decoration: underline;
+}

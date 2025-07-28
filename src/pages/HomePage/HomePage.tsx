@@ -1,5 +1,6 @@
 import ServiceCard from "../../components/Services/Services";
 import Reservation from "../Reservation/Reservation";
+import Contact from "../Contact/Contact";
 import "./HomePage.css";
 
 function HomePage() {
@@ -70,7 +71,7 @@ function HomePage() {
         </div>
       </div>
       <div id="about-stats">O Nama</div>
-      <div id="client-love">Kontakt</div>
+      <div id="client-love"><Contact/></div>
       <div id="visit-us">Posetite Nas</div>
       <div id="reservation"><Reservation/></div>
     </div>
