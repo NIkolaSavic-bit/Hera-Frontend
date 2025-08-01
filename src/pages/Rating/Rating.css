@@ -1,0 +1,140 @@
+.rating-component {
+  max-width: 600px;
+  margin: 2rem auto;
+  padding: 1.5rem;
+  background: #f9f9f9;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  font-family: Arial, sans-serif;
+}
+.rating-component h2 {
+  font-weight: 100;
+}
+.rating-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.stars {
+  display: flex;
+  gap: 0.3rem;
+  justify-content: center;
+  font-size: 2.5rem;
+  user-select: none;
+}
+
+.star {
+  cursor: pointer;
+  transition: color 0.2s;
+  outline: none;
+}
+
+.star.empty {
+  color: lightgray;
+}
+
+.star.filled {
+  color: gold;
+}
+
+.star:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+textarea {
+  width: 100%;
+  resize: none;
+  padding: 10px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+button {
+  padding: 10px;
+  background-color: #ccc;
+  color: white;
+  font-weight: bold;
+  border: 0 0 15px rgb(125, 125, 125, 0.5);
+  border-radius: 6px;
+  cursor: pointer;
+  opacity: 1;
+}
+
+button:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.error {
+  color: red;
+  font-size: 0.85rem;
+  text-align: center;
+}
+
+.review-list {
+  margin-top: 2rem;
+  max-height: 250px;
+  overflow-y: auto;
+  padding-right: 10px;
+  border-radius: 6px;
+  background: white;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.review-item {
+  padding: 1rem;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.05);
+  margin-bottom: 1rem;
+  font-size: 1rem;
+}
+
+.review-stars {
+  display: flex;
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+  color: gold;
+  border: none;
+}
+@media (max-width: 600px) {
+  .rating-component {
+    max-width: 100%;
+    margin: 1rem;
+    padding: 1rem;
+  }
+
+  .stars {
+    font-size: 2rem; /* Slightly smaller stars */
+    gap: 0.2rem;
+  }
+
+  textarea {
+    font-size: 0.9rem;
+    padding: 8px;
+  }
+
+  button {
+    padding: 8px;
+    font-size: 1rem;
+  }
+
+  .review-list {
+    max-height: 200px; /* Smaller height for small screens */
+    padding-right: 6px;
+  }
+
+  .review-item {
+    font-size: 0.9rem;
+    padding: 0.8rem;
+  }
+
+  .review-stars {
+    font-size: 1.2rem;
+    margin-bottom: 0.3rem;
+  }
+}

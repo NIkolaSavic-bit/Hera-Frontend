@@ -3,13 +3,16 @@
   color: rgb(66, 64, 64);
   padding: 0 5rem;
   color: #303030;
+  display: flex;
+  flex-direction: column;
 }
 
 .home-container > div {
   background-color: white;
   width: 100%;
   scroll-margin-top: 7rem;
-  height: 100vh !important;
+  min-height: 100vh;
+  height: auto;
 }
 
 #intro {
@@ -93,9 +96,13 @@
 }
 
 .services-container {
-  display: grid;
+  display: flex;
   grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
   gap: 30px;
+  flex-wrap: nowrap;
+  overflow-x: hidden;
+  max-width: 100%;
+  height: auto;
 }
 
 #about-stats {
@@ -171,7 +178,7 @@
   padding-left: 3rem;
 }
 
-@media (max-width: 1200px) {
+/* @media (max-width: 1200px) {
   .home-container {
     padding: 0 3rem;
   }
@@ -179,79 +186,127 @@
   #intro {
     padding: 2rem 5rem;
   }
-}
+} */
 
 @media (max-width: 768px) {
-  .home-container {
-    padding: 0 2rem;
-  }
-
-  #intro {
-    padding: 2rem;
-    height: auto !important;
-    min-height: 80vh;
-  }
-
-  #intro > h1 {
-    font-size: 1.8rem;
-  }
-
-  #intro > h3 {
-    font-size: 1rem;
-  }
-
-  .intro-buttons-holder {
-    flex-direction: column;
-    height: auto;
-    gap: 1rem;
-  }
-
-  .intro-buttons-holder a {
-    width: 100%;
-    margin: 0.5rem 0 !important;
-  }
-
-  .home-container > div {
-    height: auto !important;
-    min-height: 100vh !important;
-    padding: 2rem 0;
-  }
-
-  .services-container {
-    grid-template-columns: 1fr;
-    gap: 20px;
-  }
-}
-
-@media (max-width: 480px) {
   .home-container {
     padding: 0 1rem;
   }
 
   #intro {
-    padding: 1.5rem;
+    padding: 2rem 1rem;
+    height: auto !important;
+    min-height: 70vh;
   }
 
+  #reservation {
+    width: 100%;
+    margin: 2rem 0;
+    border-radius: 10px;
+  }
+
+  #our-services {
+    height: auto;
+    padding: 2rem 1rem;
+  }
+
+  .services-container {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+  }
+
+  #about-stats {
+    flex-direction: column;
+    height: auto !important;
+  }
+
+  .about-us-info,
+  .studio-images-holder {
+    max-width: 100%;
+    padding: 1rem;
+  }
+
+  .info-container h2 {
+    font-size: 24pt;
+  }
+
+  .stats {
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    padding: 20px;
+  }
+
+  .stat-number {
+    font-size: 28px;
+  }
+
+  .stat-text {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 480px) {
   #intro > h1 {
     font-size: 1.5rem;
+    text-align: center;
+  }
+
+  #intro > h3 {
+    font-size: 0.9rem;
+    text-align: center;
+  }
+
+  .intro-buttons-holder {
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .intro-buttons-holder a {
+    width: 100%;
+    font-size: 1rem;
   }
 
   #our-services h1 {
-    font-size: 1.5rem;
+    font-size: 1.3rem;
+  }
+
+  .info-container h2 {
+    font-size: 20pt;
+    text-align: center;
+  }
+
+  .info-container p {
+    text-align: center;
   }
 
   .service-card {
     max-width: 100%;
   }
+
+  .studio-images-holder {
+    padding-left: 0;
+    padding-top: 1rem;
+  }
 }
 
 @media (max-width: 360px) {
   #intro > h1 {
-    font-size: 1.3rem;
+    font-size: 1.2rem;
   }
 
   .intro-buttons-holder a {
-    font-size: 1rem;
+    font-size: 0.9rem;
     height: 2.5rem;
+  }
+
+  .stat-number {
+    font-size: 24px;
+  }
+
+  .stat-text {
+    font-size: 13px;
   }
 }
