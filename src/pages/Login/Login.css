@@ -50,7 +50,10 @@
   width: 100%;
   padding-right: 2.5rem;
 }
-
+.prijavi-se:hover{
+  transform: translateY(-1px);
+  border:1px solid #333
+}
 .toggle-password {
   position: absolute;
   right: 0.5rem;
@@ -71,3 +74,38 @@
   height: 1.3rem;
   color: #555;
 }
+@media (max-width: 768px) {
+  .login-form {
+    width: 90%;
+    height: auto;
+    padding: 2rem 1.5rem;
+  }
+
+  .login-form h2 {
+    font-size: 24px;
+  }
+
+  .form-group input {
+    font-size: 1rem;
+  }
+
+  .password-input-wrapper input {
+    padding-right: 2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .login-form {
+    padding: 1.5rem 1rem;
+  }
+
+  .login-form h2 {
+    font-size: 20px;
+  }
+
+  .toggle-password svg {
+    width: 1rem;
+    height: 1rem;
+  }
+}
+

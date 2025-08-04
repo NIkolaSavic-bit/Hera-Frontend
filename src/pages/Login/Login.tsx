@@ -36,7 +36,7 @@ function Login() {
             </div>
           </div>
 
-          <button type="submit">Prijavi se</button>
+          <button type="submit" className="prijavi-se">Prijavi se</button>
         </form>
       </div>
     </div>

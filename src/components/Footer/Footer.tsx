@@ -10,7 +10,11 @@ function Footer() {
           <a className="name-image-footer" href="/"></a>
         </div>
       </div>
-      <a href="/Prijava">Za zaposlene</a>
+      <div className="zaposleni">
+        <h3>Za zaposlene</h3>
+        <a href="/Prijava">Prijava na sistem</a>
+        <a href="/Prijava_na_Konkurs">Prijava na kokurs za rad </a>
+      </div>
     </div>
   );
 }

@@ -22,7 +22,7 @@
   align-items: center;
   height: 10rem !important;
   width: 100% !important;
-  background-color: rgb(230, 224, 151);
+ 
 }
 @media (max-width: 768px) {
   .main-content {
