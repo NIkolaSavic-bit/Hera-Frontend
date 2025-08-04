@@ -1,19 +1,51 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { PiEye, PiEyeClosed } from "react-icons/pi";
+import EmployeeService from "../../services/EmployeeService";
+import type { EmployeeLoginDTO } from "../../models/Employee/EmployeeLoginDTO";
 
 import "./Login.css";
 
 function Login() {
   const [showPassword, setShowPassword] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState<string | null>(null);
+
+  const handleLogin = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    const loginDto: EmployeeLoginDTO = {
+      email,
+      password,
+    };
+
+    try {
+      const token = await EmployeeService.login(loginDto);
+      localStorage.setItem("token", token); // Store token, adjust for your auth handling
+      setError(null);
+      // You can navigate or reload page here
+      alert("Prijava uspješna!");
+    } catch (err) {
+      console.error(err);
+      setError("Neispravno korisničko ime ili lozinka.");
+    }
+  };
 
   return (
     <div className="container">
       <div className="login-form">
         <h2>Prijava</h2>
-        <form>
+        <form onSubmit={handleLogin}>
           <div className="form-group">
             <label htmlFor="username">Korisničko ime/e-mail</label>
-            <input type="text" id="username" name="username" required />
+            <input
+              type="text"
+              id="username"
+              name="username"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
           </div>
 
           <div className="form-group password-group">
@@ -23,6 +55,8 @@ function Login() {
                 type={showPassword ? "text" : "password"}
                 id="password"
                 name="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
                 required
               />
               <button
@@ -36,7 +70,9 @@ function Login() {
             </div>
           </div>
 
-          <button type="submit" className="prijavi-se">Prijavi se</button>
+          {error && <p className="error-message">{error}</p>}
+
+          <button type="submit" className "prijavi-se">Prijavi se</button>
         </form>
       </div>
     </div>

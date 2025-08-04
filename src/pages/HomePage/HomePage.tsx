@@ -4,7 +4,7 @@ import Contact from "../Contact/Contact";
 import Reservation from "../Reservation/Reservation";
 import Rating from "..//Rating/Rating";
 import "./HomePage.css";
-import React, { useState } from "react";
+import { useState } from "react";
 
 function HomePage() {
   const [activeCardIndex, setActiveCardIndex] = useState<number | null>(null);

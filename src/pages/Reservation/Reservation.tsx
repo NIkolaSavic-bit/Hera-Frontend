@@ -1,16 +1,19 @@
 import React, { useState, useRef, useEffect } from "react";
 import "./Reservation.css";
-import PopupMessage from "../../PopUp/PopupMessage";
+import type { Service } from "../../models/Service/Service";
+import { ServiceService } from "../../services/ServiceService";
 
 interface ReservationItem {
   usluga: string;
   detalji: string[];
 }
 
-interface FormData {
+export interface FormData {
   ime: string;
   prezime: string;
   brojTelefona: string;
+  usluga: string;
+  datum: string;
   datum: string;
   vreme: string;
   viseTermina: boolean;
@@ -106,18 +109,15 @@ const formatDate = (dateString: string) => {
 };
 
 const Reservation: React.FC = () => {
+  const [services, setServices] = useState<Service[]>([]);
   const [formData, setFormData] = useState<FormData>({
     ime: "",
     prezime: "",
     brojTelefona: "",
+    usluga: "",
     datum: "",
     vreme: "",
-    viseTermina: false,
-    rezervacije: [{ usluga: "", detalji: [] }],
   });
-
-  const [errors, setErrors] = useState<{ [key: string]: boolean }>({});
-
   const timeSlots = [
     "09:00",
     "09:30",
@@ -138,6 +138,20 @@ const Reservation: React.FC = () => {
     "17:00",
   ];
 
+  useEffect(() => {
+    const fetchServices = async () => {
+      try {
+        const serviceService = new ServiceService();
+        const data = await serviceService.getAllServices();
+        setServices(data);
+      } catch (error) {
+        console.error("Greška pri dohvaćanju usluga:", error);
+      }
+    };
+
+    fetchServices();
+  }, []);
+
   const nailOptions = [
     { value: "manikir", label: "Manikir" },
     { value: "gel", label: "Gel lak" },
@@ -155,6 +169,7 @@ const Reservation: React.FC = () => {
     const newErrors: { [key: string]: boolean } = {};
     let isValid = true;
 
+    
     if (!formData.ime) {
       newErrors.ime = true;
       isValid = false;
@@ -176,6 +191,7 @@ const Reservation: React.FC = () => {
       isValid = false;
     }
 
+    
     formData.rezervacije.forEach((rez, index) => {
       if (!rez.usluga) {
         newErrors[`rezervacija-${index}-usluga`] = true;
@@ -199,7 +215,7 @@ const Reservation: React.FC = () => {
       ...prev,
       [name]: value,
     }));
-
+    
     setErrors((prev) => ({ ...prev, [name]: false }));
   };
 
@@ -227,6 +243,7 @@ const Reservation: React.FC = () => {
     }
     setFormData((prev) => ({ ...prev, rezervacije: updated }));
 
+    
     if (field === "usluga") {
       setErrors((prev) => ({
         ...prev,
@@ -248,19 +265,10 @@ const Reservation: React.FC = () => {
     }));
   };
 
-  const [showPopup, setShowPopup] = useState(false);
-  const [popupMessage, setPopupMessage] = useState("");
-  const [popupType, setPopupType] = useState<"success" | "error" | "info">(
-    "success"
-  );
-
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
     if (!validateForm()) {
-      setPopupMessage("Molimo popunite sva obavezna polja!");
-      setPopupType("error");
-      setShowPopup(true);
       return;
     }
 
@@ -275,17 +283,14 @@ const Reservation: React.FC = () => {
       )
       .join("\n");
 
-    setPopupMessage(`Uspešno ste zakazali termin!\n\nDetalji:
+    alert(`Uspešno ste zakazali termin!\n\nDetalji:
 Ime: ${formData.ime}
 Prezime: ${formData.prezime}
 Telefon: ${formData.brojTelefona}
 Datum: ${formatDate(formData.datum)}
 Vreme: ${formData.vreme}
 ${reservationDetails}`);
-    setPopupType("success");
-    setShowPopup(true);
 
-    
     setFormData({
       ime: "",
       prezime: "",
@@ -476,15 +481,6 @@ ${reservationDetails}`);
           Zakaži termin
         </button>
       </form>
-      {showPopup && (
-        <PopupMessage
-          message={popupMessage}
-          onConfirm={() => setShowPopup(false)}
-          onClose={() => setShowPopup(false)}
-          type={popupType}
-          confirmText="U redu"
-        />
-      )}
     </div>
   );
 };
