@@ -69,6 +69,37 @@ header {
   color: white;
   height: 60%;
 }
+.mobile-menu {
+  display: none;
+  position: fixed;
+  top: 5rem;
+  left: 0;
+  width: 100%;
+  background-color: white;
+  padding: 1rem;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+  z-index: 999;
+}
+
+.mobile-menu.active {
+  display: block;
+}
+
+.mobile-menu a {
+  display: block;
+  padding: 0.8rem 0;
+  color: grey;
+  border-bottom: 1px solid #eee;
+}
+
+.mobile-menu .book-now-mobile {
+  display: block;
+  background: black;
+  color: white;
+  padding: 0.8rem;
+  text-align: center;
+  margin-top: 1rem;
+}
 
 @media (max-width: 2000px) {
   .mobile-menu .book-now-mobile,
@@ -161,6 +192,7 @@ header {
 @media (max-width: 576px) {
   .header-container {
     height: 4rem;
+    
   }
 
   .logo {
@@ -172,36 +204,12 @@ header {
     height: 3rem;
     width: 8rem;
   }
-}
-
-.mobile-menu {
-  display: none;
-  position: fixed;
-  top: 5rem;
-  left: 0;
-  width: 100%;
-  background-color: white;
-  padding: 1rem;
-  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
-  z-index: 999;
-}
-
-.mobile-menu.active {
-  display: block;
-}
-
-.mobile-menu a {
-  display: block;
-  padding: 0.8rem 0;
-  color: grey;
-  border-bottom: 1px solid #eee;
-}
-
-.mobile-menu .book-now-mobile {
-  display: block;
-  background: black;
-  color: white;
-  padding: 0.8rem;
-  text-align: center;
-  margin-top: 1rem;
+  .mobile-menu-btn {
+    display: block !important;
+    order: 3;
+    background: none;
+    border: none;
+    color: grey;
+    font-size: 1.5rem;
+  }
 }

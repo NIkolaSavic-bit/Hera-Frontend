@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import "./Reservation.css";
+import PopupMessage from "../../PopUp/PopupMessage";
 
 interface ReservationItem {
   usluga: string;
@@ -81,7 +82,6 @@ const Dropdown: React.FC<DropdownProps> = ({
               className="checkbox-option"
               onClick={() => toggleOption(option.value)}
             >
-              
               <input
                 type="checkbox"
                 checked={selected.includes(option.value)}
@@ -155,7 +155,6 @@ const Reservation: React.FC = () => {
     const newErrors: { [key: string]: boolean } = {};
     let isValid = true;
 
-    
     if (!formData.ime) {
       newErrors.ime = true;
       isValid = false;
@@ -177,7 +176,6 @@ const Reservation: React.FC = () => {
       isValid = false;
     }
 
-    
     formData.rezervacije.forEach((rez, index) => {
       if (!rez.usluga) {
         newErrors[`rezervacija-${index}-usluga`] = true;
@@ -201,7 +199,7 @@ const Reservation: React.FC = () => {
       ...prev,
       [name]: value,
     }));
-    
+
     setErrors((prev) => ({ ...prev, [name]: false }));
   };
 
@@ -229,7 +227,6 @@ const Reservation: React.FC = () => {
     }
     setFormData((prev) => ({ ...prev, rezervacije: updated }));
 
-    
     if (field === "usluga") {
       setErrors((prev) => ({
         ...prev,
@@ -251,10 +248,19 @@ const Reservation: React.FC = () => {
     }));
   };
 
+  const [showPopup, setShowPopup] = useState(false);
+  const [popupMessage, setPopupMessage] = useState("");
+  const [popupType, setPopupType] = useState<"success" | "error" | "info">(
+    "success"
+  );
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
     if (!validateForm()) {
+      setPopupMessage("Molimo popunite sva obavezna polja!");
+      setPopupType("error");
+      setShowPopup(true);
       return;
     }
 
@@ -269,14 +275,17 @@ const Reservation: React.FC = () => {
       )
       .join("\n");
 
-    alert(`Uspešno ste zakazali termin!\n\nDetalji:
+    setPopupMessage(`Uspešno ste zakazali termin!\n\nDetalji:
 Ime: ${formData.ime}
 Prezime: ${formData.prezime}
 Telefon: ${formData.brojTelefona}
 Datum: ${formatDate(formData.datum)}
 Vreme: ${formData.vreme}
 ${reservationDetails}`);
+    setPopupType("success");
+    setShowPopup(true);
 
+    
     setFormData({
       ime: "",
       prezime: "",
@@ -467,6 +476,15 @@ ${reservationDetails}`);
           Zakaži termin
         </button>
       </form>
+      {showPopup && (
+        <PopupMessage
+          message={popupMessage}
+          onConfirm={() => setShowPopup(false)}
+          onClose={() => setShowPopup(false)}
+          type={popupType}
+          confirmText="U redu"
+        />
+      )}
     </div>
   );
 };

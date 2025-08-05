@@ -1,0 +1,228 @@
+.employee-reservations-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+h1 {
+  color: #333;
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.reservations-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.reservation-card {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  overflow: hidden;
+  background-color: white;
+  transition: all 0.3s ease;
+}
+
+.reservation-card.pending {
+  border-left: 4px solid #ffc107;
+}
+
+.reservation-card.approved {
+  border-left: 4px solid #4caf50;
+}
+
+.reservation-card.rejected {
+  border-left: 4px solid #f44336;
+}
+
+.reservation-summary {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px;
+  cursor: pointer;
+  background-color: #f9f9f9;
+}
+
+.summary-content h3 {
+  display: flex;
+  justify-content: flex-start;
+  margin: 0;
+  color: #333;
+}
+
+.summary-content p {
+  margin: 0;
+  color: #666;
+  font-size: 14px;
+}
+
+.status-badge {
+  padding: 5px 10px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.status-badge.pending {
+  background-color: #fff3cd;
+  color: #856404;
+}
+
+.status-badge.approved {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+.status-badge.rejected {
+  background-color: #f8d7da;
+  color: #721c24;
+}
+
+.reservation-details {
+  padding: 15px;
+  border-top: 1px solid #eee;
+}
+
+.detail-row {
+  display: flex;
+  margin-bottom: 10px;
+}
+.detail-row span {
+  color: #555;
+}
+
+.detail-label {
+  font-weight: bold;
+  min-width: 100px;
+  color: #555;
+}
+.detail-label span {
+  color: #333;
+}
+
+.services-list {
+  flex: 1;
+}
+
+.service-item {
+  margin-bottom: 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+.service-item ul {
+  margin: 5px 0 0 10px;
+  padding: 0;
+  color: #666;
+}
+
+.service-item li {
+  margin-bottom: 3px;
+}
+.service-item strong {
+  color: #333;
+}
+
+.reservation-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+  padding-top: 15px;
+  border-top: 1px solid #eee;
+}
+
+.approve-btn,
+.reject-btn {
+  padding: 8px 15px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s;
+  flex: 1;
+}
+
+.approve-btn {
+  background-color: #4caf50;
+  color: white;
+}
+
+.approve-btn:hover {
+  background-color: #3e8e41;
+}
+
+.reject-btn {
+  background-color: #f44336;
+  color: white;
+}
+
+.reject-btn:hover {
+  background-color: #d32f2f;
+}
+
+.loading-spinner {
+  text-align: center;
+  padding: 40px;
+  font-size: 18px;
+  color: #666;
+}
+
+.no-reservations {
+  text-align: center;
+  padding: 40px;
+  font-size: 18px;
+  color: #666;
+  border: 1px dashed #ddd;
+  border-radius: 8px;
+}
+.summary-details {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  color: black;
+}
+@media screen and (max-width: 768px) {
+  .employee-reservations-container {
+    padding: 10px;
+  }
+
+  .reservation-summary {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .summary-details {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 5px;
+  }
+  .detail-label {
+    min-width: 0;
+    flex: 1;
+  }
+  .services-list {
+    width: 100%;
+  }
+  .detail-row {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .reservation-actions {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .approve-btn,
+  .reject-btn {
+    width: 100%;
+  }
+
+  .service-item {
+    flex-direction: column;
+  }
+}
