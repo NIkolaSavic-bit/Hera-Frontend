@@ -278,7 +278,14 @@ input[type="time"]::-webkit-calendar-picker-indicator {
   font-size: 0.8rem;
   margin-top: 4px;
 }
-/* Responsive design */
+.popup-btn-ok {
+  background-color: #4caf50;
+  color: white;
+}
+
+.popup-btn-ok:hover {
+  background-color: #45a049;
+}
 @media (max-width: 768px) {
   .appointment-container {
     padding: 1.8rem;
