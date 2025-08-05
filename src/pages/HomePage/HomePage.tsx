@@ -3,106 +3,28 @@ import ServiceCard from "../../components/Services/Services";
 import Contact from "../Contact/Contact";
 import Reservation from "../Reservation/Reservation";
 import Rating from "..//Rating/Rating";
+import { ServiceService } from "../../services/ServiceService";
 import "./HomePage.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import type { Service } from "../../models/Service/Service";
 
 function HomePage() {
+  const serviceService = new ServiceService();
   const [activeCardIndex, setActiveCardIndex] = useState<number | null>(null);
-  const services = [
-    {
-      imagePath: "/images/laser-hair-removal.jpg",
-      title: "Lasersko uklanjanje dlaka",
-      description:
-        "Napredna laserska tehnologija za trajno smanjenje dlaka. Bezbedni, efikasni i gotovo bezbolni tretmani za sve tipove kože.",
-      priceItems: [
-        { area: "Lice", price: "Od $150" },
-        { area: "Pazuh", price: "Od $100" },
-        { area: "Noge", price: "Od $300" },
-        { area: "Bikini zona", price: "Od $200" },
-        { area: "Leđa", price: "Od $250" },
-        { area: "Grudi", price: "Od $180" },
-        { area: "Ruke", price: "Od $120" },
-        { area: "Stomak", price: "Od $220" },
-        { area: "Donji deo leđa", price: "Od $200" },
-        { area: "Brada", price: "Od $80" },
-        { area: "Vrat", price: "Od $90" },
-        { area: "Prsa", price: "Od $160" },
-        { area: "Ramena", price: "Od $140" },
-        { area: "Butine", price: "Od $280" },
-        { area: "Potkolenice", price: "Od $240" },
-        { area: "Celokupno telo", price: "Od $600" },
-        { area: "Gornji deo tela", price: "Od $400" },
-        { area: "Donji deo tela", price: "Od $450" },
-        { area: "Intimna zona", price: "Od $300" },
-        { area: "Usne", price: "Od $70" },
-        { area: "Obrve", price: "Od $60" },
-        { area: "Zatezanje kože", price: "Od $350" },
-        { area: "Paket 6 tretmana", price: "Od $1500" },
-      ],
-    },
-    {
-      imagePath: "/images/nail-artistry.jpg",
-      title: "Umetnost noktiju",
-      description:
-        "Luksuzne manikire i pedikire sa premium proizvodima. Od klasične elegancije do modernih dizajna noktiju.",
-      priceItems: [
-        { area: "Klasični manikir", price: "$45" },
-        { area: "Gel manikir", price: "$65" },
-        { area: "Dizajn noktiju", price: "Od $85" },
-        { area: "Spa manikir", price: "$75" },
-        { area: "French manikir", price: "$55" },
-        { area: "Akrilni nokti", price: "$90" },
-        { area: "Nadogradnja noktiju", price: "$110" },
-        { area: "Parafinsko pakovanje", price: "$40" },
-        { area: "Jačanje noktiju", price: "$50" },
-        { area: "Popravka nokta", price: "$25" },
-        { area: "Uklanjanje gel laka", price: "$20" },
-        { area: "Nokti sa rupicama", price: "$95" },
-        { area: "Kristalni nokti", price: "$120" },
-        { area: "Zlatni detalji", price: "$100" },
-        { area: "Art nokti", price: "$130" },
-        { area: "Tematski dizajn", price: "$140" },
-        { area: "Nokti sa slikom", price: "$150" },
-        { area: "3D dizajn", price: "$160" },
-        { area: "Marble efekat", price: "$110" },
-        { area: "Ombre efekat", price: "$105" },
-        { area: "Metalik efekat", price: "$95" },
-        { area: "Matirani gel lak", price: "$85" },
-        { area: "Paket manikir+pedikir", price: "$120" },
-      ],
-    },
-    {
-      imagePath: "/images/eyebrow-perfection.jpg",
-      title: "Savršenstvo obrva",
-      description:
-        "Stručno oblikovanje obrva, bojenje i mikroblading. Ulepšajte svoju prirodnu lepotu sa savršeno oblikovanim obrvama.",
-      priceItems: [
-        { area: "Oblikovanje obrva", price: "$35" },
-        { area: "Bojenje", price: "$25" },
-        { area: "Mikroblading", price: "$450" },
-        { area: "Henna obrve", price: "$40" },
-        { area: "Laminacija obrva", price: "$60" },
-        { area: "Korekcija obrva", price: "$30" },
-        { area: "Čupanje končićem", price: "$45" },
-        { area: "Senzibilna obrva", price: "$50" },
-        { area: "Kombinovani tretman", price: "$75" },
-        { area: "Dugotrajna boja", price: "$55" },
-        { area: "Prirodni efekat", price: "$65" },
-        { area: "Intenzivna boja", price: "$70" },
-        { area: "Korekcija mikrobladinga", price: "$200" },
-        { area: "Touch-up tretman", price: "$150" },
-        { area: "Oblikovanje pincetom", price: "$30" },
-        { area: "Oblikovanje voskom", price: "$35" },
-        { area: "Kompletni tretman", price: "$90" },
-        { area: "Oblikovanje+bojenje", price: "$50" },
-        { area: "Express obrve", price: "$25" },
-        { area: "VIP tretman", price: "$120" },
-        { area: "Oblikovanje za specijalne prilike", price: "$80" },
-        { area: "Godišnji paket održavanja", price: "$300" },
-        { area: "Paket 4 tretmana", price: "$200" },
-      ],
-    },
-  ];
+  const [heraServices, setHeraServices] = useState<Service[]>();
+
+useEffect(() => {
+  const fetchServices = async () => {
+    try {
+      const allServices = await serviceService.getAllServices();
+      setHeraServices(allServices);
+    } catch (err) {
+      console.error("Error loading services:", err);
+    }
+  };
+
+  fetchServices();
+}, []);
 
   const handleCardClick = (index: number) => {
     setActiveCardIndex((prev) => (prev === index ? null : index));
@@ -135,10 +57,11 @@ function HomePage() {
         </p>
 
         <div className="services-container">
-          {services.map((service, index) => (
+          {heraServices && heraServices.map((service, index) => (
             <ServiceCard
               key={index}
-              {...service}
+              imagePath=".\images\eyebrow-perfection.jpg"
+              service={service}
               isActive={index === activeCardIndex}
               isInactive={activeCardIndex !== null && index !== activeCardIndex}
               onClick={() => handleCardClick(index)}
@@ -197,7 +120,8 @@ function HomePage() {
         <Rating />
       </div>
       <div id="reservation">
-        <Reservation />
+        <Reservation
+        services={heraServices!} />
       </div>
     </div>
   );

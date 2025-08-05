@@ -1,7 +1,7 @@
 export interface Subservice {
-  SubserviceId: number;
-  Name: string;
-  Description: string;
-  Duration: string;
-  Price: number;
+  subserviceId: number;
+  name: string;
+  description: string;
+  duration: string;
+  price: number;
 }

@@ -2,6 +2,7 @@ import { useState } from "react";
 import { PiEye, PiEyeClosed } from "react-icons/pi";
 import EmployeeService from "../../services/EmployeeService";
 import type { EmployeeLoginDTO } from "../../models/Employee/EmployeeLoginDTO";
+import { useNavigate } from "react-router-dom";
 
 import "./Login.css";
 
@@ -10,6 +11,7 @@ function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
+  const navigate = useNavigate();
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -21,10 +23,10 @@ function Login() {
 
     try {
       const token = await EmployeeService.login(loginDto);
-      localStorage.setItem("token", token); // Store token, adjust for your auth handling
+      localStorage.setItem("token", token); 
       setError(null);
-      // You can navigate or reload page here
       alert("Prijava uspješna!");
+      navigate("/");
     } catch (err) {
       console.error(err);
       setError("Neispravno korisničko ime ili lozinka.");
@@ -72,7 +74,7 @@ function Login() {
 
           {error && <p className="error-message">{error}</p>}
 
-          <button type="submit" className "prijavi-se">Prijavi se</button>
+          <button type="submit" className="prijavi-se">Prijavi se</button>
         </form>
       </div>
     </div>

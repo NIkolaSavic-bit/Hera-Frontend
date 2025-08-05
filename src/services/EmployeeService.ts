@@ -12,7 +12,7 @@ class EmployeeService {
 
   async login(loginDto: EmployeeLoginDTO): Promise<string> {
     const response = await axios.post<{ token: string }>(
-      `${API_URL}/login`,
+      `${API_URL}/Employee/login`,
       loginDto
     );
     return response.data.token;

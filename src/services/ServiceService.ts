@@ -5,6 +5,7 @@ import type { Subservice } from "../models/Subservice/Subservice";
 const API_URL = import.meta.env.VITE_API_URL;
 
 export class ServiceService {
+  
   async getAllServices(): Promise<Service[]> {
     const response = await axios.get<Service[]>(`${API_URL}/Service`);
     console.log(response);
