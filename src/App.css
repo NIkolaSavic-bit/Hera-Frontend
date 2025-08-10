@@ -30,3 +30,12 @@
 .read-the-docs {
   color: #888;
 }
+
+.form-group input {
+    width: none !important;
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: white;
+    color: black;
+}
