@@ -100,13 +100,11 @@
 
 .area {
   font-weight: 100;
-  text-align: left;
   color: #333;
 }
 
 .price {
   font-weight: 100;
-  text-align: right;
   color: #888;
 }
 
@@ -166,6 +164,7 @@
   .service-card,
   .service-card.active,
   .service-card.inactive {
+
     width: 100% !important;
     max-width: 100% !important;
     flex: 1 1 100% !important;
@@ -179,6 +178,19 @@
 
   .service-card.active {
     position: relative !important;
+
+    width: 350px !important; /* Keep fixed width */
+    max-width: 350px !important;
+    flex: 0 0 350px !important; /* Keep flex fixed */
+    margin: 20px;
+    transition: height 0.6s ease-in-out;
+  }
+
+  .service-card.active {
+    height: auto !important; /* Let height expand */
+    min-height: 420px;
+    max-height: 1000px;
+    /* Remove width and flex changes here */
   }
 
   /* Price table stacked into two columns for mobile */
@@ -189,6 +201,7 @@
     padding: 10px;
     width: 100%;
   }
+
 
   /* Each price-row becomes 2 columns: area and price */
   .price-row {
@@ -212,4 +225,6 @@
     font-size: 10px;
     padding: 4px 8px;
   }
+
+
 }
