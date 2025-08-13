@@ -102,14 +102,14 @@ const ServiceSelectionStep: React.FC<StepProps> = ({
     }
 
     // Initialize service selections with empty subservices
-    const newUsluge = selectedServices.map(serviceId => ({
+    const newUsluge = selectedServices.map((serviceId) => ({
       serviceId,
-      subservices: []
+      subservices: [],
     }));
 
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
-      usluge: newUsluge
+      usluge: newUsluge,
     }));
     setErrors((prev) => ({ ...prev, usluge: false }));
     nextStep();
@@ -122,13 +122,14 @@ const ServiceSelectionStep: React.FC<StepProps> = ({
         <label>Usluge*</label>
         <Dropdown
           options={services.map((service) => service.name)}
-          selected={selectedServices.map(serviceId => 
-            services.find(s => s.serviceId === serviceId)?.name || ''
+          selected={selectedServices.map(
+            (serviceId) =>
+              services.find((s) => s.serviceId === serviceId)?.name || ""
           )}
           onSelect={(values) => {
             const selectedIds = services
-              .filter(s => values.includes(s.name))
-              .map(s => s.serviceId);
+              .filter((s) => values.includes(s.name))
+              .map((s) => s.serviceId);
             setSelectedServices(selectedIds);
           }}
           placeholder="Izaberite usluge"
@@ -154,7 +155,9 @@ const SubserviceSelectionStep: React.FC<StepProps> = ({
   currentServiceIndex = 0,
 }) => {
   const currentService = formData.usluge[currentServiceIndex];
-  const serviceData = services.find(s => s.serviceId === currentService.serviceId);
+  const serviceData = services.find(
+    (s) => s.serviceId === currentService.serviceId
+  );
 
   const handleNext = () => {
     if (currentService.subservices.length === 0) {
@@ -163,7 +166,7 @@ const SubserviceSelectionStep: React.FC<StepProps> = ({
     }
 
     setErrors((prev) => ({ ...prev, detalji: false }));
-    
+
     if (currentServiceIndex < formData.usluge.length - 1) {
       // Move to next service's subservices
       nextStep();
@@ -175,16 +178,19 @@ const SubserviceSelectionStep: React.FC<StepProps> = ({
 
   return (
     <div className="step-container">
-      <h3>Korak {currentServiceIndex + 2}: Odaberite detalje za {serviceData?.name}</h3>
+      <h3>
+        Korak {currentServiceIndex + 2}: Odaberite detalje za{" "}
+        {serviceData?.name}
+      </h3>
       <div className="form-group">
         <label>Detalji usluge*</label>
         <Dropdown
-          options={serviceData?.subservices?.map(s => s.name) || []}
+          options={serviceData?.subservices?.map((s) => s.name) || []}
           selected={currentService.subservices}
           onSelect={(values) => {
             const updatedUsluge = [...formData.usluge];
             updatedUsluge[currentServiceIndex].subservices = values;
-            setFormData(prev => ({ ...prev, usluge: updatedUsluge }));
+            setFormData((prev) => ({ ...prev, usluge: updatedUsluge }));
           }}
           required
           hasError={errors.detalji}
@@ -195,7 +201,83 @@ const SubserviceSelectionStep: React.FC<StepProps> = ({
           Nazad
         </button>
         <button type="button" className="next-btn" onClick={handleNext}>
-          {currentServiceIndex < formData.usluge.length - 1 ? 'Dalje' : 'Završi'}
+          {currentServiceIndex < formData.usluge.length - 1
+            ? "Dalje"
+            : "Završi"}
+        </button>
+      </div>
+    </div>
+  );
+};
+
+const ReviewStep: React.FC<StepProps> = ({ services, formData, prevStep }) => {
+  const totalPrice = formData.usluge.reduce((total, usluga) => {
+    const service = services.find((s) => s.serviceId === usluga.serviceId);
+    if (!service) return total;
+    return (
+      total +
+      usluga.subservices.reduce((subTotal, subName) => {
+        const subservice = service?.subservices.find(
+          (sub) => sub.name === subName
+        );
+        return subTotal + (subservice?.price ?? 0);
+      }, 0)
+    );
+  }, 0);
+
+  return (
+    <div className="step-container">
+      <h3>Pregled zakazanog termina</h3>
+
+      <h4>Izabrane usluge:</h4>
+      {formData.usluge.length === 0 ? (
+        <p>Niste odabrali nijednu uslugu.</p>
+      ) : (
+        <ul>
+          {formData.usluge.map((usluga) => {
+            const service = services.find(
+              (s) => s.serviceId === usluga.serviceId
+            );
+            return (
+              <li key={usluga.serviceId}>
+                <strong>{service?.name}</strong>
+                <ul>
+                  {usluga.subservices.map((subName) => {
+                    const subservice = service?.subservices.find(
+                      (sub) => sub.name === subName
+                    );
+                    return (
+                      <li key={subName}>
+                        {subName} - {subservice?.price ?? "Cena nije dostupna"}{" "}
+                        €
+                      </li>
+                    );
+                  })}
+                </ul>
+              </li>
+            );
+          })}
+        </ul>
+      )}
+
+      <h4>Lični podaci:</h4>
+      <p>
+        <strong>Ime:</strong> {formData.ime}
+        <br />
+        <strong>Prezime:</strong> {formData.prezime}
+        <br />
+        <strong>Telefon:</strong> {formData.brojTelefona}
+        <br />
+        <strong>Datum:</strong> {formData.datum}
+        <br />
+        <strong>Vreme:</strong> {formData.vreme}
+      </p>
+
+      <h4>Ukupna cena: {totalPrice} €</h4>
+
+      <div className="step-buttons">
+        <button type="button" className="prev-btn" onClick={prevStep}>
+          Nazad
         </button>
       </div>
     </div>
@@ -209,11 +291,26 @@ const PersonalInfoStep: React.FC<StepProps> = ({
   errors,
   setErrors,
   prevStep,
+  nextStep,
 }) => {
   const timeSlots = [
-    "09:00", "09:30", "10:00", "10:30", "11:00", "11:30", "12:00",
-    "12:30", "13:00", "13:30", "14:00", "14:30", "15:00", "15:30",
-    "16:00", "16:30", "17:00",
+    "09:00",
+    "09:30",
+    "10:00",
+    "10:30",
+    "11:00",
+    "11:30",
+    "12:00",
+    "12:30",
+    "13:00",
+    "13:30",
+    "14:00",
+    "14:30",
+    "15:00",
+    "15:30",
+    "16:00",
+    "16:30",
+    "17:00",
   ];
 
   const handleChange = (
@@ -223,20 +320,11 @@ const PersonalInfoStep: React.FC<StepProps> = ({
     setFormData((prev) => ({ ...prev, [name]: value }));
     setErrors((prev) => ({ ...prev, [name]: false }));
   };
-
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     const isValid = validateForm();
     if (isValid) {
-      // Format the confirmation message
-      const serviceDetails = formData.usluge.map(usluga => {
-        const service = services.find(s => s.serviceId === usluga.serviceId);
-        return `${service?.name}: ${usluga.subservices.join(", ")}`;
-      }).join("\n");
-
-      alert(
-        `Uspešno ste zakazali termin!\n\nDetalji:\nIme: ${formData.ime}\nPrezime: ${formData.prezime}\nTelefon: ${formData.brojTelefona}\nDatum: ${formData.datum}\nVreme: ${formData.vreme}\n\nUsluge:\n${serviceDetails}`
-      );
+      nextStep(); // go to the review step instead of alert
     }
   };
 
@@ -256,7 +344,7 @@ const PersonalInfoStep: React.FC<StepProps> = ({
 
   return (
     <div className="step-container">
-      <h3>Korak {formData.usluge.length + 2}: Lični podaci i termin</h3>
+      <h3>Korak {formData.usluge.length + 3}: Lični podaci i termin</h3>
       <form onSubmit={handleSubmit}>
         <div className="form-row">
           <div className="form-group">
@@ -310,7 +398,9 @@ const PersonalInfoStep: React.FC<StepProps> = ({
               min={new Date().toISOString().split("T")[0]}
               className={errors.datum ? "error" : ""}
             />
-            {errors.datum && <div className="error-message">Obavezno polje</div>}
+            {errors.datum && (
+              <div className="error-message">Obavezno polje</div>
+            )}
           </div>
           <div className="form-group">
             <label htmlFor="vreme">Vreme*</label>
@@ -362,6 +452,95 @@ const Reservation: React.FC<ReservationProps> = ({ services = [] }) => {
   });
   const [errors, setErrors] = useState<{ [key: string]: boolean }>({});
 
+  const hardcodedServices: Service[] = [
+    {
+      serviceId: "nails",
+      name: "Nokti",
+      subservices: [
+        { name: "Manikir", price: 20 },
+        { name: "Gel nokti", price: 35 },
+        { name: "Pedikir", price: 25 },
+      ],
+    },
+    {
+      serviceId: "face",
+      name: "Lice",
+      subservices: [
+        { name: "Čišćenje lica", price: 50 },
+        { name: "Masaža lica", price: 40 },
+        { name: "Anti-aging tretman", price: 70 },
+      ],
+    },
+    {
+      serviceId: "hair",
+      name: "Kosa",
+      subservices: [
+        { name: "Šišanje", price: 30 },
+        { name: "Feniranje", price: 25 },
+        { name: "Farbanje", price: 60 },
+      ],
+    },
+  ];
+
+  const effectiveServices =
+    services && services.length > 0 ? services : hardcodedServices;
+
+  // New validation function for navigation
+  const canGoToStep = (stepIndex: number): boolean => {
+    if (stepIndex === 0) return true; // Always allow first step
+
+    if (stepIndex === 1) {
+      // To go to Step 2 (subservice for first service), must have selected at least one service
+      return formData.usluge.length > 0;
+    }
+
+    if (stepIndex > 1 && stepIndex <= formData.usluge.length) {
+      // For other subservices steps:
+      // Previous subservices must be selected for all previous services
+
+      // Check all previous services have at least one subservice selected
+      for (let i = 0; i < stepIndex - 1; i++) {
+        if (
+          !formData.usluge[i] ||
+          formData.usluge[i].subservices.length === 0
+        ) {
+          return false;
+        }
+      }
+      return true;
+    }
+
+    if (stepIndex === formData.usluge.length + 1) {
+      // Review step
+      // Check all services have subservices selected
+      for (let i = 0; i < formData.usluge.length; i++) {
+        if (
+          !formData.usluge[i] ||
+          formData.usluge[i].subservices.length === 0
+        ) {
+          return false;
+        }
+      }
+      return true;
+    }
+
+    if (stepIndex === formData.usluge.length + 2) {
+      // Personal info step
+      // Check all services have subservices selected
+      for (let i = 0; i < formData.usluge.length; i++) {
+        if (
+          !formData.usluge[i] ||
+          formData.usluge[i].subservices.length === 0
+        ) {
+          return false;
+        }
+      }
+      return true;
+    }
+
+    return false;
+  };
+
   const nextStep = () => setCurrentStep((prev) => prev + 1);
   const prevStep = () => setCurrentStep((prev) => prev - 1);
 
@@ -369,7 +548,7 @@ const Reservation: React.FC<ReservationProps> = ({ services = [] }) => {
     if (currentStep === 0) {
       return (
         <ServiceSelectionStep
-          services={services}
+          services={effectiveServices}
           formData={formData}
           setFormData={setFormData}
           errors={errors}
@@ -382,7 +561,7 @@ const Reservation: React.FC<ReservationProps> = ({ services = [] }) => {
     if (currentStep <= formData.usluge.length) {
       return (
         <SubserviceSelectionStep
-          services={services}
+          services={effectiveServices}
           formData={formData}
           setFormData={setFormData}
           errors={errors}
@@ -394,33 +573,59 @@ const Reservation: React.FC<ReservationProps> = ({ services = [] }) => {
       );
     }
 
-    return (
-      <PersonalInfoStep
-        services={services}
-        formData={formData}
-        setFormData={setFormData}
-        errors={errors}
-        setErrors={setErrors}
-        prevStep={prevStep}
-        nextStep={nextStep}
-      />
-    );
+    if (currentStep === formData.usluge.length + 1) {
+      return (
+        <PersonalInfoStep
+          services={effectiveServices}
+          formData={formData}
+          setFormData={setFormData}
+          errors={errors}
+          setErrors={setErrors}
+          prevStep={prevStep}
+          nextStep={nextStep}
+        />
+      );
+    }
+
+    if (currentStep === formData.usluge.length + 2) {
+      return (
+        <ReviewStep
+          services={effectiveServices}
+          formData={formData}
+          prevStep={prevStep}
+        />
+      );
+    }
+
+    return null;
   };
 
-  const totalSteps = formData.usluge.length + 2; // Services + subservices + personal info
+  const totalSteps = formData.usluge.length + 3;
 
   return (
     <div id="reservation" className="appointment-container">
       <h2>Zakažite termin</h2>
       <div className="step-indicator">
-        {Array.from({ length: totalSteps }).map((_, index) => (
-          <div
-            key={index}
-            className={`step-circle ${currentStep >= index ? "active" : ""}`}
-          >
-            {index + 1}
-          </div>
-        ))}
+        {Array.from({ length: totalSteps }).map((_, index) => {
+          const enabled = canGoToStep(index);
+          return (
+            <div
+              key={index}
+              className={`step-circle ${currentStep >= index ? "active" : ""} ${
+                enabled ? "" : "disabled"
+              }`}
+              onClick={() => enabled && setCurrentStep(index)}
+              style={{ cursor: enabled ? "pointer" : "default" }}
+              title={
+                enabled
+                  ? undefined
+                  : "Popunite prethodne korake pre nego što nastavite"
+              }
+            >
+              {index + 1}
+            </div>
+          );
+        })}
       </div>
       {renderStep()}
     </div>

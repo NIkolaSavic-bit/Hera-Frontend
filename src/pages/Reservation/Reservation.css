@@ -3,15 +3,16 @@
   max-width: 650px;
   margin: 2rem auto;
   padding: 2rem;
-  background-color: rgba(125, 125, 125, 0.1);
+  background-color: #faf7f5; /* soft cream */
   border-radius: 12px;
-  box-shadow: 0 6px 18px rgba(125, 125, 125, 0.5);
-  font-family: "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", sans-serif;
+  box-shadow: 0 6px 18px rgba(170, 150, 120, 0.3); /* warm subtle shadow */
+  font-family: "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans",
+    sans-serif;
 }
 
 .appointment-container h2 {
   text-align: center;
-  color: black;
+  color: #5b4636; /* dark warm brown */
   margin-bottom: 2rem;
   font-size: 2rem;
   font-weight: 600;
@@ -29,16 +30,16 @@
   width: 36px;
   height: 36px;
   border-radius: 50%;
-  background-color: #e0e0e0;
+  background-color: #ddd2c1; /* light beige */
   display: flex;
   align-items: center;
   justify-content: center;
   font-weight: 600;
-  color: #666;
+  color: #9a7f63; /* medium warm brown */
 }
 
 .step-circle.active {
-  background-color: #6d4aff;
+  background-color: #b3788a; /* muted mauve/pink */
   color: white;
 }
 
@@ -60,7 +61,7 @@
 
 .step-container h3 {
   margin-bottom: 1.5rem;
-  color: #333;
+  color: #5b4636; /* dark warm brown */
   text-align: center;
 }
 
@@ -82,7 +83,7 @@
 .form-group label {
   margin-bottom: 0.6rem;
   font-weight: 600;
-  color: #4a4a4a;
+  color: #7d6b58; /* medium brown */
   font-size: 0.95rem;
 }
 
@@ -96,11 +97,11 @@ select {
 .form-group select {
   width: 100%;
   padding: 0.9rem 1rem;
-  border: 1px solid #e0e0e0;
+  border: 1px solid #cbbcae; /* soft warm border */
   border-radius: 8px;
   font-size: 0.9rem;
   transition: all 0.25s ease;
-  background-color: #f9f9f9;
+  background-color: #f9f6f3; /* very light cream */
   height: 44px;
   line-height: 1.2;
 }
@@ -108,25 +109,25 @@ select {
 .form-group input:focus,
 .form-group select:focus {
   outline: none;
-  border-color: #6d4aff;
-  box-shadow: 0 0 0 3px rgba(109, 74, 255, 0.15);
+  border-color: #b3788a; /* mauve accent */
+  box-shadow: 0 0 0 3px rgba(179, 120, 138, 0.3);
   background-color: #fff;
 }
 
 .form-group input::placeholder {
-  color: #aaa;
+  color: #b7a89a; /* muted beige */
   opacity: 1;
 }
 
 /* Select Specific Styles */
 .form-group select {
   appearance: none;
-  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23666' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%237d6b58' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
   background-repeat: no-repeat;
   background-position: right 1rem center;
   background-size: 1.2rem;
   padding-right: 2.5rem;
-  color: #333;
+  color: #5b4636; /* dark warm brown */
 }
 
 /* Date and Time Inputs */
@@ -134,7 +135,7 @@ input[type="date"],
 input[type="time"] {
   position: relative;
   padding-right: 2.5rem;
-  background-image: url('data:image/svg+xml;utf8,<svg fill="%23666" xmlns="http://www.w3.org/2000/svg" height="24" width="24" viewBox="0 0 24 24"><path d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zM5 20V9h14v11H5z"/></svg>');
+  background-image: url('data:image/svg+xml;utf8,<svg fill="%237d6b58" xmlns="http://www.w3.org/2000/svg" height="24" width="24" viewBox="0 0 24 24"><path d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zM5 20V9h14v11H5z"/></svg>');
   background-repeat: no-repeat;
   background-position: right 12px center;
   background-size: 20px 20px;
@@ -148,9 +149,9 @@ input[type="time"] {
 
 .dropdown-toggle {
   padding: 0.9rem 1rem;
-  border: 1px solid #e0e0e0;
+  border: 1px solid #cbbcae;
   border-radius: 8px;
-  background-color: #f9f9f9;
+  background-color: #f9f6f3;
   cursor: pointer;
   display: flex;
   justify-content: space-between;
@@ -158,6 +159,7 @@ input[type="time"] {
   height: 44px;
   font-size: 0.9rem;
   transition: all 0.25s ease;
+  color: #5b4636;
 }
 
 .dropdown-toggle:hover {
@@ -171,15 +173,15 @@ input[type="time"] {
   right: 0;
   max-height: 200px;
   overflow-y: auto;
-  background-color: white;
-  border: 1px solid #e0e0e0;
+  background-color: #fff;
+  border: 1px solid #cbbcae;
   border-radius: 8px;
   z-index: 100;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 5px 15px rgba(179, 120, 138, 0.15);
   margin-top: 0.25rem;
   padding: 0.5rem;
   scrollbar-width: thin;
-  scrollbar-color: #aaa transparent;
+  scrollbar-color: #b7a89a transparent;
 }
 
 .checkbox-option {
@@ -190,12 +192,12 @@ input[type="time"] {
   padding: 0.5rem 0.75rem;
   user-select: none;
   font-size: 0.9rem;
-  color: #333;
+  color: #5b4636;
   transition: background-color 0.2s;
 }
 
 .checkbox-option:hover {
-  background-color: #f5f5f5;
+  background-color: #f3ece7;
 }
 
 .checkbox-option input {
@@ -221,27 +223,28 @@ input[type="time"] {
 
 .next-btn,
 .submit-btn {
-  background-color: #6d4aff;
+  background-color: #b3788a; /* mauve */
   color: white;
 }
 
 .next-btn:hover,
 .submit-btn:hover {
-  background-color: #5a3de8;
+  background-color: #9e657a; /* deeper mauve */
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(109, 74, 255, 0.25);
+  box-shadow: 0 4px 12px rgba(158, 101, 122, 0.3);
 }
 
 .prev-btn {
-  background-color: #e0e0e0;
-  color: #333;
+  background-color: #cbbcae; /* soft beige */
+  color: #5b4636;
   margin-right: 1rem;
 }
 
 .prev-btn:hover {
-  background-color: #d0d0d0;
+  background-color: #b7a89a;
 }
 
+/* Step Buttons */
 .step-buttons {
   display: flex;
   justify-content: space-between;
@@ -250,18 +253,149 @@ input[type="time"] {
 
 /* Error States */
 .error {
-  border-color: #ff4444 !important;
+  border-color: #d94f4f !important; /* soft red */
 }
 
 .error-message {
-  color: #ff4444;
+  color: #d94f4f;
   font-size: 0.8rem;
   margin-top: 0.25rem;
 }
 
 .required-asterisk {
-  color: #ff4444;
+  color: #d94f4f;
   margin-left: 0.25rem;
+}
+
+/* ===== ReviewStep / Last Step Styles ===== */
+.step-container {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+  
+}
+.step-container h3 {
+  color: #b3788a; /* mauve accent for step heading */
+  text-align: center;
+  margin-bottom: 1.8rem;
+  font-weight: 700;
+  font-size: 1.8rem;
+}
+
+.step-container h4 {
+  position: relative;
+  color: #7d6b58; /* warm brown */
+  font-weight: 700;
+  margin-top: 1.5rem;
+  margin-bottom: 1rem;
+  border-bottom: 2px solid #a67c52;
+  padding-bottom: 0.3rem;
+  letter-spacing: 0.05em;
+}
+
+.step-container ul {
+  position: relative;
+  list-style: none;
+  padding-left: 0;       /* remove left padding to center properly */
+  margin: 0 auto;        /* center horizontally */
+  color: #5b4636;
+  font-size: 1rem;
+  line-height: 1.5;
+  text-align: center;    /* center text inside */
+  max-width: 400px;      /* optional: limit width for better centering */
+}
+
+.step-container ul > li > ul {
+  margin-top: 0.5rem;
+  color: #5b4636;
+  font-weight: 400;
+  list-style: none;
+}
+
+.step-container ul > li > ul > li {
+  margin-bottom: 0.3rem;
+  position: relative;
+  padding-left: 0;
+}
+
+.step-container ul > li > ul > li::before {
+  content: none;
+}
+
+.step-container p {
+  font-weight: 600;
+  line-height: 1.5;
+  color: #5b4636;
+  margin: 0.5rem 0;
+}
+
+.step-container h4 + p {
+  margin-top: 0;
+  margin-bottom: 1rem;
+}
+
+.step-container h4 + ul + h4 {
+  margin-top: 2rem;
+}
+
+.step-container h4:last-of-type {
+  margin-top: 2.5rem;
+}
+
+.step-container h4:last-of-type + p {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #6b4f2d;
+  text-align: right;
+  margin-top: 0.8rem;
+}
+.step-container h3,
+.step-container h4 {
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+}
+/* Buttons container */
+.step-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 3rem;
+}
+
+/* Buttons style overrides for review step */
+.prev-btn {
+  background-color: black;
+  color: white;
+  padding: 0.9rem 2.5rem;
+  font-weight: 700;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(166, 124, 82, 0.35);
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  cursor: pointer;
+}
+
+.prev-btn:hover {
+  background-color: #936c47;
+  transform: translateY(-3px);
+}
+
+/* Responsive tweaks */
+@media (max-width: 480px) {
+  .step-container ul,
+  .step-container p {
+    font-size: 0.9rem;
+  }
+
+  .step-buttons {
+    flex-direction: column;
+  }
+
+  .prev-btn {
+    width: 100%;
+  }
 }
 
 /* Responsive Design */
