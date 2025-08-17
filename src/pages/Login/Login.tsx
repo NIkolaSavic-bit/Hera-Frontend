@@ -5,6 +5,7 @@ import type { EmployeeLoginDTO } from "../../models/Employee/EmployeeLoginDTO";
 import { useNavigate } from "react-router-dom";
 
 import "./Login.css";
+import { jwtDecode } from "jwt-decode";
 
 function Login() {
   const [showPassword, setShowPassword] = useState(false);
@@ -23,10 +24,18 @@ function Login() {
 
     try {
       const token = await EmployeeService.login(loginDto);
-      localStorage.setItem("token", token); 
+      localStorage.setItem("token", token);
+
+      const decoded = jwtDecode(token) as any;
+      localStorage.setItem("role", decoded.role);
+
       setError(null);
       alert("Prijava uspješna!");
-      navigate("/");
+      if (decoded.role === "Admin") {
+        navigate("/admin-page");
+      } else {
+        navigate("/employee-page");
+      }
     } catch (err) {
       console.error(err);
       setError("Neispravno korisničko ime ili lozinka.");
@@ -74,7 +83,9 @@ function Login() {
 
           {error && <p className="error-message">{error}</p>}
 
-          <button type="submit" className="prijavi-se">Prijavi se</button>
+          <button type="submit" className="prijavi-se">
+            Prijavi se
+          </button>
         </form>
       </div>
     </div>

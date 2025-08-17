@@ -44,7 +44,12 @@ const Services: React.FC<ServiceCardProps> = ({
     if (isActive) {
       setVisibleItems(0);
       const timers = service.subservices?.map((_, index) =>
-        setTimeout(() => setVisibleItems((prev) => prev + 1), 800 + index * 120)
+        setTimeout(() => {
+          setTimeout(
+            () => setVisibleItems((prev) => prev + 4),
+            800 + index * 350
+          ), 
+        400})
       );
       return () => timers.forEach((timer) => clearTimeout(timer));
     } else {
@@ -87,13 +92,18 @@ const Services: React.FC<ServiceCardProps> = ({
         />
         <div className="service-card-content">
           <h2 className="service-card-title">{service.name}</h2>
+          <p className="service-card-description">{service.description}</p>
           <div className="price-table">
-            {service.subservices?.slice(0, visibleItems).map((item, index) => (
-              <React.Fragment key={index}>
-                  <div className="area">{item.name}</div>
-                  <div className="price">{item.price}KM</div>
-              </React.Fragment>
-            ))}
+            <div className="price-row">
+              {service.subservices
+                ?.slice(0, visibleItems)
+                .map((item, index) => (
+                  <React.Fragment key={index}>
+                    <div className="area">{item.name}</div>
+                    <div className="price">{item.price}KM</div>
+                  </React.Fragment>
+                ))}
+            </div>
           </div>
         </div>
       </div>

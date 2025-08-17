@@ -1,161 +1,41 @@
 import React, { useState, useEffect } from "react";
 import "./ReservationManagement.css";
+import axios from "axios";
 
-interface Reservation {
-  id: string;
-  ime: string;
-  prezime: string;
-  brojTelefona: string;
-  datum: string;
-  vreme: string;
-  usluge: {
-    naziv: string;
-    detalji: string[];
-  }[];
-  status: "pending" | "approved" | "rejected";
+const API_URL = import.meta.env.VITE_API_URL;
+
+interface RetrieveReservationDTO {
+  reservationId: number;
+  serviceName: string;
+  phoneNumber: string;
+  customerFullName: string;
+  reservationStart: string;
+  reservationEnd: string;
+  isFinished: boolean;
+  subserviceNames: string[];
 }
 
 const ReservationManagement: React.FC = () => {
-  const [reservations, setReservations] = useState<Reservation[]>([]);
+  const [reservations, setReservations] = useState<RetrieveReservationDTO[]>(
+    []
+  );
+  const [filteredReservations, setFilteredReservations] = useState<
+    RetrieveReservationDTO[]
+  >([]);
   const [loading, setLoading] = useState(true);
-  const [expandId, setExpandedId] = useState<string | null>(null);
+  const [expandId, setExpandedId] = useState<number | null>(null);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [statusFilter, setStatusFilter] = useState<
+    "all" | "pending" | "completed"
+  >("all");
 
   useEffect(() => {
     const fetchReservations = async () => {
       try {
         setLoading(true);
-        // Simulate API delay
-        await new Promise((resolve) => setTimeout(resolve, 800));
-
-        // Mock data - replace with real API response
-        const mockData: Reservation[] = [
-          {
-            id: "1",
-            ime: "Ana",
-            prezime: "Anić",
-            brojTelefona: "0631234567",
-            datum: "2023-12-15",
-            vreme: "10:00",
-            usluge: [
-              {
-                naziv: "Nokti",
-                detalji: ["Manikir", "Gel lak"],
-              },
-            ],
-            status: "pending",
-          },
-          {
-            id: "2",
-            ime: "Marko",
-            prezime: "Marković",
-            brojTelefona: "0649876543",
-            datum: "2023-12-16",
-            vreme: "14:30",
-            usluge: [
-              {
-                naziv: "Lice",
-                detalji: ["Čišćenje lica", "Hidratacija"],
-              },
-              {
-                naziv: "Nokti",
-                detalji: ["Trajni lak"],
-              },
-            ],
-            status: "pending",
-          },
-          {
-            id: "3",
-            ime: "Jovana",
-            prezime: "Jovanović",
-            brojTelefona: "0655555555",
-            datum: "2023-12-17",
-            vreme: "11:00",
-            usluge: [
-              {
-                naziv: "Nokti",
-                detalji: ["Nadogradnja noktiju", "Gel lak"],
-              },
-            ],
-            status: "pending",
-          },
-          {
-            id: "4",
-            ime: "Milica",
-            prezime: "Milić",
-            brojTelefona: "0666666666",
-            datum: "2023-12-18",
-            vreme: "12:00",
-            usluge: [
-              {
-                naziv: "Frizura",
-                detalji: ["Feniranje", "Pramenovi"],
-              },
-            ],
-            status: "pending",
-          },
-          {
-            id: "5",
-            ime: "Stefan",
-            prezime: "Stefanović",
-            brojTelefona: "0677777777",
-            datum: "2023-12-19",
-            vreme: "13:00",
-            usluge: [
-              {
-                naziv: "Nokti",
-                detalji: ["Manikir", "Pedikir"],
-              },
-            ],
-            status: "pending",
-          },
-          {
-            id: "6",
-            ime: "Petar",
-            prezime: "Petrović",
-            brojTelefona: "0688888888",
-            datum: "2023-12-20",
-            vreme: "15:00",
-            usluge: [
-              {
-                naziv: "Lice",
-                detalji: ["Čišćenje lica", "Hidratacija"],
-              },
-            ],
-            status: "pending",
-          },
-          {
-            id: "7",
-            ime: "Ivana",
-            prezime: "Ivanović",
-            brojTelefona: "0699999999",
-            datum: "2023-12-21",
-            vreme: "16:00",
-            usluge: [
-              {
-                naziv: "Nokti",
-                detalji: ["Trajni lak"],
-              },
-            ],
-            status: "pending",
-          },
-          {
-            id: "8",
-            ime: "Marko",
-            prezime: "Nikolić",
-            brojTelefona: "0700000000",
-            datum: "2023-12-22",
-            vreme: "17:00",
-            usluge: [
-              {
-                naziv: "Frizura",
-                detalji: ["Gej", "Pramenovi"],
-              },
-            ],
-            status: "pending",
-          },
-        ];
-
-        setReservations(mockData);
+        const response = await axios.get(`${API_URL}/reservation`);
+        setReservations(response.data);
+        setFilteredReservations(response.data);
       } catch (error) {
         console.error("Error fetching reservations:", error);
       } finally {
@@ -166,14 +46,40 @@ const ReservationManagement: React.FC = () => {
     fetchReservations();
   }, []);
 
-  const handleApprove = async (id: string) => {
-    try {
-      // Mock API call - replace with actual API call
-      await new Promise((resolve) => setTimeout(resolve, 300));
+  useEffect(() => {
+    const filtered = reservations.filter((reservation) => {
+      // Apply status filter
+      const statusMatch =
+        statusFilter === "all" ||
+        (statusFilter === "pending" && !reservation.isFinished) ||
+        (statusFilter === "completed" && reservation.isFinished);
 
+      // Apply search term filter
+      const searchMatch =
+        searchTerm === "" ||
+        reservation.customerFullName
+          .toLowerCase()
+          .includes(searchTerm.toLowerCase()) ||
+        reservation.serviceName
+          .toLowerCase()
+          .includes(searchTerm.toLowerCase()) ||
+        reservation.phoneNumber.includes(searchTerm) ||
+        reservation.subserviceNames.some((sub) =>
+          sub.toLowerCase().includes(searchTerm.toLowerCase())
+        );
+
+      return statusMatch && searchMatch;
+    });
+
+    setFilteredReservations(filtered);
+  }, [searchTerm, statusFilter, reservations]);
+
+  const handleApprove = async (id: number) => {
+    try {
+      await axios.put(`http://localhost:5118/api/reservation/${id}/approve`);
       setReservations((prev) =>
         prev.map((res) =>
-          res.id === id ? { ...res, status: "approved" } : res
+          res.reservationId === id ? { ...res, isFinished: true } : res
         )
       );
     } catch (error) {
@@ -181,129 +87,172 @@ const ReservationManagement: React.FC = () => {
     }
   };
 
-  const handleReject = async (id: string) => {
+  const handleReject = async (id: number) => {
     try {
-      // Mock API call - replace with actual API call
-      await new Promise((resolve) => setTimeout(resolve, 300));
-
-      setReservations((prev) =>
-        prev.map((res) =>
-          res.id === id ? { ...res, status: "rejected" } : res
-        )
-      );
+      await axios.delete(`http://localhost:5118/api/reservation/${id}`);
+      setReservations((prev) => prev.filter((res) => res.reservationId !== id));
     } catch (error) {
       console.error("Error rejecting reservation:", error);
     }
   };
 
-  const toggleExpand = (id: string) => {
+  const toggleExpand = (id: number) => {
     setExpandedId(expandId === id ? null : id);
   };
 
-  const formatDate = (dateString: string) => {
-    const [year, month, day] = dateString.split("-");
-    return `${day}.${month}.${year}.`;
+  const formatDateTime = (dateTimeString: string) => {
+    const date = new Date(dateTimeString);
+    const day = date.getDate().toString().padStart(2, "0");
+    const month = (date.getMonth() + 1).toString().padStart(2, "0");
+    const year = date.getFullYear();
+    const hours = date.getHours().toString().padStart(2, "0");
+    const minutes = date.getMinutes().toString().padStart(2, "0");
+    return `${day}.${month}.${year}. ${hours}:${minutes}`;
   };
 
   const formatPhoneNumber = (phone: string): string => {
-    // Remove all non-digit characters
     const cleaned = phone.replace(/\D/g, "");
-
-    // Format as 087/123-123 if it's a 9-digit number
     if (cleaned.length > 6) {
       return `${cleaned.substring(0, 3)}/${cleaned.substring(
         3,
         6
       )}-${cleaned.substring(6)}`;
     }
-
-    // Return original if doesn't match expected format
     return phone;
   };
 
   return (
-    <div className="employee-reservations-container">
-      <h1>Upravljanje rezervacijama</h1>
+    <div className="reservations-management">
+      <h1 className="management-title">Upravljanje rezervacijama</h1>
+
+      <div className="filter-controls">
+        <div className="search-container">
+          <input
+            type="text"
+            placeholder="Pretraži rezervacije..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            className="search-input"
+          />
+          <span className="search-icon">🔍</span>
+        </div>
+
+        <div className="status-filter">
+          <button
+            className={`filter-btn ${statusFilter === "all" ? "active" : ""}`}
+            onClick={() => setStatusFilter("all")}
+          >
+            Sve
+          </button>
+          <button
+            className={`filter-btn ${
+              statusFilter === "pending" ? "active" : ""
+            }`}
+            onClick={() => setStatusFilter("pending")}
+          >
+            Na čekanju
+          </button>
+          <button
+            className={`filter-btn ${
+              statusFilter === "completed" ? "active" : ""
+            }`}
+            onClick={() => setStatusFilter("completed")}
+          >
+            Završeno
+          </button>
+        </div>
+      </div>
 
       {loading ? (
-        <div className="loading-spinner">Učitavanje rezervacija...</div>
-      ) : reservations.length === 0 ? (
-        <div className="no-reservations">Trenutno nema rezervacija</div>
+        <div className="loading-state">
+          <div className="loading-spinner"></div>
+          <p>Učitavanje rezervacija...</p>
+        </div>
+      ) : filteredReservations.length === 0 ? (
+        <div className="empty-state">
+          <p>Nema rezultata za prikaz</p>
+        </div>
       ) : (
-        <div className="reservations-list">
-          {reservations.map((reservation) => (
+        <div className="reservations-grid">
+          {filteredReservations.map((reservation) => (
             <div
-              key={reservation.id}
-              className={`reservation-card ${reservation.status} ${
-                expandId === reservation.id ? "expanded" : ""
-              }`}
+              key={reservation.reservationId}
+              className={`reservation-item ${
+                reservation.isFinished ? "completed" : "pending"
+              } ${expandId === reservation.reservationId ? "expanded" : ""}`}
             >
               <div
-                className="reservation-summary"
-                onClick={() => toggleExpand(reservation.id)}
+                className="reservation-header"
+                onClick={() => toggleExpand(reservation.reservationId)}
               >
-                <div className="summary-content">
-                  <h3>
-                    {reservation.ime} {reservation.prezime}
-                  </h3>
-                  <div className="summary-details">
-                    <span>
-                      {formatDate(reservation.datum)} u {reservation.vreme}
+                <div className="header-main">
+                  <div className="customer-info">
+                    <span className="customer-name">
+                      {reservation.customerFullName}
                     </span>
-                    <span className="phone-number">
-                      Broj telefona:{" "}
-                      {formatPhoneNumber(reservation.brojTelefona)}
+                    <span className="customer-phone">
+                      {formatPhoneNumber(reservation.phoneNumber)}
+                    </span>
+                  </div>
+                  <div className="service-time">
+                    <span className="service-name">
+                      {reservation.serviceName}
+                    </span>
+                    <span className="reservation-time">
+                      {formatDateTime(reservation.reservationStart)}
                     </span>
                   </div>
                 </div>
-                <span className={`status-badge ${reservation.status}`}>
-                  {reservation.status === "pending" && "Na čekanju"}
-                  {reservation.status === "approved" && "Prihvaćeno"}
-                  {reservation.status === "rejected" && "Odbijeno"}
+                <span className="status-indicator">
+                  {reservation.isFinished ? "Završeno" : "Na čekanju"}
                 </span>
               </div>
 
-              {expandId === reservation.id && (
+              {expandId === reservation.reservationId && (
                 <div className="reservation-details">
-                  <div className="detail-row">
-                    <span className="detail-label">Telefon:</span>
-                    <span>{formatPhoneNumber(reservation.brojTelefona)}</span>
-                  </div>
-
-                  <div className="detail-row">
-                    <span className="detail-label">Usluge:</span>
-                    <div className="services-list">
-                      {reservation.usluge.map((usluga, index) => (
-                        <div key={index} className="service-item">
-                          <strong>{usluga.naziv}</strong>
-                          {usluga.detalji.length > 0 && (
-                            <ul>
-                              {usluga.detalji.map((detalj, i) => (
-                                <li key={i}>{detalj}</li>
-                              ))}
-                            </ul>
-                          )}
-                        </div>
-                      ))}
+                  <div className="details-content">
+                    <div className="time-range">
+                      {formatDateTime(reservation.reservationStart)} -{" "}
+                      {formatDateTime(reservation.reservationEnd)}
                     </div>
-                  </div>
 
-                  {reservation.status === "pending" && (
-                    <div className="reservation-actions">
-                      <button
-                        className="approve-btn"
-                        onClick={() => handleApprove(reservation.id)}
-                      >
-                        Prihvati
-                      </button>
-                      <button
-                        className="reject-btn"
-                        onClick={() => handleReject(reservation.id)}
-                      >
-                        Odbij
-                      </button>
-                    </div>
-                  )}
+                    {reservation.subserviceNames.length > 0 && (
+                      <div className="subservices-section">
+                        <h4>Dodatne usluge:</h4>
+                        <ul className="subservices-list">
+                          {reservation.subserviceNames.map((name, index) => (
+                            <li key={index} className="subservice-item">
+                              <span className="subservice-bullet"></span>
+                              {name}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
+
+                    {!reservation.isFinished && (
+                      <div className="action-buttons">
+                        <button
+                          className="btn approve"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            handleApprove(reservation.reservationId);
+                          }}
+                        >
+                          Prihvati
+                        </button>
+                        <button
+                          className="btn reject"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            handleReject(reservation.reservationId);
+                          }}
+                        >
+                          Odbij
+                        </button>
+                      </div>
+                    )}
+                  </div>
                 </div>
               )}
             </div>

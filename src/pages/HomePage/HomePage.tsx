@@ -120,8 +120,7 @@ useEffect(() => {
         <Rating />
       </div>
       <div id="reservation">
-        <Reservation
-        services={heraServices!} />
+        <Reservation />
       </div>
     </div>
   );

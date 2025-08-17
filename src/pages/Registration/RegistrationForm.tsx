@@ -34,7 +34,6 @@ const RegistrationForm: React.FC = () => {
       ...prev,
       [name]: value,
     }));
-    // Clear error when user types
     if (errors[name as keyof RegistrationData]) {
       setErrors((prev) => ({
         ...prev,
@@ -47,7 +46,8 @@ const RegistrationForm: React.FC = () => {
     const newErrors: Partial<RegistrationData & { confirmPassword: string }> =
       {};
 
-    if (!formData.userName.trim()) newErrors.userName = "Username je obavezno polje";
+    if (!formData.userName.trim())
+      newErrors.userName = "Username je obavezno polje";
     if (!formData.firstName.trim())
       newErrors.firstName = "First name is required";
     if (!formData.lastName.trim()) newErrors.lastName = "Ime je obavezno polje";
@@ -112,31 +112,38 @@ const RegistrationForm: React.FC = () => {
   if (isSuccess) {
     return (
       <div className="registration-success">
-        <h2>Uspešno ste se registrovali</h2>
+        <div className="success-icon">✓</div>
+        <h2>Uspešna registracija</h2>
+        <p>Zaposleni je uspešno dodat u sistem.</p>
       </div>
     );
   }
 
   return (
     <div className="registration-container">
-      <h2>Napravi profil</h2>
-      <form onSubmit={handleSubmit} className="registration-form">
-        <div className="form-group">
-          <label htmlFor="userName">Username*</label>
-          <input
-            type="text"
-            id="userName"
-            name="userName"
-            value={formData.userName}
-            onChange={handleChange}
-            className={errors.userName ? "error" : ""}
-          />
-          {errors.userName && (
-            <span className="error-message">{errors.userName}</span>
-          )}
-        </div>
+      <div className="form-header">
+        <h2>Registruj novog zaposlenog</h2>
+        <p>Popunite sve potrebne informacije</p>
+      </div>
 
-        <div className="form-row">
+      <form onSubmit={handleSubmit} className="registration-form">
+        <div className="form-grid">
+          <div className="form-group">
+            <label htmlFor="userName">Korisničko ime*</label>
+            <input
+              type="text"
+              id="userName"
+              name="userName"
+              value={formData.userName}
+              onChange={handleChange}
+              className={errors.userName ? "error" : ""}
+              placeholder="Unesite korisničko ime"
+            />
+            {errors.userName && (
+              <span className="error-message">{errors.userName}</span>
+            )}
+          </div>
+
           <div className="form-group">
             <label htmlFor="firstName">Ime*</label>
             <input
@@ -146,6 +153,7 @@ const RegistrationForm: React.FC = () => {
               value={formData.firstName}
               onChange={handleChange}
               className={errors.firstName ? "error" : ""}
+              placeholder="Unesite ime"
             />
             {errors.firstName && (
               <span className="error-message">{errors.firstName}</span>
@@ -161,75 +169,87 @@ const RegistrationForm: React.FC = () => {
               value={formData.lastName}
               onChange={handleChange}
               className={errors.lastName ? "error" : ""}
+              placeholder="Unesite prezime"
             />
             {errors.lastName && (
               <span className="error-message">{errors.lastName}</span>
             )}
           </div>
-        </div>
 
-        <div className="form-group">
-          <label htmlFor="email">Email*</label>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
-            className={errors.email ? "error" : ""}
-          />
-          {errors.email && (
-            <span className="error-message">{errors.email}</span>
-          )}
-        </div>
+          <div className="form-group">
+            <label htmlFor="email">Email*</label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
+              className={errors.email ? "error" : ""}
+              placeholder="Unesite email adresu"
+            />
+            {errors.email && (
+              <span className="error-message">{errors.email}</span>
+            )}
+          </div>
 
-        <div className="form-group">
-          <label htmlFor="phoneNumber">Broj telefona*</label>
-          <input
-            type="tel"
-            id="phoneNumber"
-            name="phoneNumber"
-            value={formData.phoneNumber}
-            onChange={handleChange}
-            className={errors.phoneNumber ? "error" : ""}
-          />
-          {errors.phoneNumber && (
-            <span className="error-message">{errors.phoneNumber}</span>
-          )}
-        </div>
+          <div className="form-group">
+            <label htmlFor="phoneNumber">Broj telefona*</label>
+            <input
+              type="tel"
+              id="phoneNumber"
+              name="phoneNumber"
+              value={formData.phoneNumber}
+              onChange={handleChange}
+              className={errors.phoneNumber ? "error" : ""}
+              placeholder="Unesite broj telefona"
+            />
+            {errors.phoneNumber && (
+              <span className="error-message">{errors.phoneNumber}</span>
+            )}
+          </div>
 
-        <div className="form-group">
-          <label htmlFor="password">Sifra*</label>
-          <input
-            type="password"
-            id="password"
-            name="password"
-            value={formData.password}
-            onChange={handleChange}
-            className={errors.password ? "error" : ""}
-          />
-          {errors.password && (
-            <span className="error-message">{errors.password}</span>
-          )}
-        </div>
+          <div className="form-group">
+            <label htmlFor="password">Šifra*</label>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              value={formData.password}
+              onChange={handleChange}
+              className={errors.password ? "error" : ""}
+              placeholder="Kreirajte šifru"
+            />
+            {errors.password && (
+              <span className="error-message">{errors.password}</span>
+            )}
+          </div>
 
-        <div className="form-group">
-          <label htmlFor="confirmPassword">Potvrdi sifru*</label>
-          <input
-            type="password"
-            id="confirmPassword"
-            name="confirmPassword"
-            value={formData.confirmPassword}
-            onChange={handleChange}
-            className={errors.confirmPassword ? "error" : ""}
-          />
-          {errors.confirmPassword && (
-            <span className="error-message">{errors.confirmPassword}</span>
-          )}
+          <div className="form-group">
+            <label htmlFor="confirmPassword">Potvrdi šifru*</label>
+            <input
+              type="password"
+              id="confirmPassword"
+              name="confirmPassword"
+              value={formData.confirmPassword}
+              onChange={handleChange}
+              className={errors.confirmPassword ? "error" : ""}
+              placeholder="Ponovite šifru"
+            />
+            {errors.confirmPassword && (
+              <span className="error-message">{errors.confirmPassword}</span>
+            )}
+          </div>
         </div>
 
         <button type="submit" className="submit-btn" disabled={isSubmitting}>
-          {isSubmitting ? "Registruje..." : "Registruj se"}
+          {isSubmitting ? (
+            <>
+              <span className="spinner"></span>
+              Procesiram...
+            </>
+          ) : (
+            "Registruj zaposlenog"
+          )}
         </button>
       </form>
     </div>

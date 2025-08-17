@@ -7,5 +7,6 @@ export interface Reservation {
   phoneNumber: string;
   service?: Service;
   subservices: Subservice[];
-  reservationStart: string; 
+  reservationStart: Date; 
+  reservationEnd: Date; 
 }
